@@ -159,11 +159,11 @@ def masterdata():
 		contents=contents+c
 	nama=""   
 	if not os.path.isfile('./templates/masterdata.html'):
-	f= open("./templates/masterdata.html","w+")
-	f.write('{% extends "base.html" %}')
-	f.write('{% block content %}')
-	f.write('{% if action=="add" %}')
-	f.write('<form>')
+		f= open("./templates/masterdata.html","w+")
+		f.write('{% extends "base.html" %}')
+		f.write('{% block content %}')
+		f.write('{% if action=="add" %}')
+		f.write('<form>')
 	for c in stocks.__table__.columns:
 		if str(c.type)=='DATE':
 			f.write('<label>'+str(c)+'</label><div class="input-group date" id="datetimepicker1"><input type="text" class="form-control" />')
