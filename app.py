@@ -4,7 +4,7 @@ from sqlalchemy.inspection import inspect
 import datetime
 import os
 #from flask.ext.login import LoginManager
-#from f.lask.ext.login import login_required.
+#from f.lask.ext.login import login_required
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data/stock.sqlite3' 
 app.config['SECRET_KEY'] = "random string"
@@ -42,13 +42,14 @@ def __init__(self, name, city, addr,pin):
 def generatetemplate(namaobj,namafile):
 	filename='templates/'+namafile+'.html'
 	if not os.path.isfile('filename'):
- 		f= open(filename,"w+")
- 		f.write('{% extends "base.html" %}')
- 		f.write('{% block content %}')
- 		f.write('{% if action=="add" %}')
- 		f.write('<form>')
- 		for c in namaobj.__table__.columns:
-			if str(c.type)=='DATE':
+		f= open(filename,"w+")
+		f.write('{% extends "base.html" %}')
+		f.write('{% block content %}')
+		f.write('{% if action=="add" %}')
+		f.write('<form>')
+		for c in namaobj.__table__.columns:
+			#error
+			if str(c.type) == 'DATE':
 				f.write('<label>'+str(c)+'</label><div class="input-group date" id="datetimepicker1"><input type="text" class="form-control" />')
 				f.write('<i class="icon-calendar"></i>')
 				f.write('</div>')
@@ -56,22 +57,22 @@ def generatetemplate(namaobj,namafile):
 				f.write('<label>'+str(c)+'</label><input type"text" id="'+str(c)+'" placeholder="'+str(c.type)+'">')
 		
 			
- 	f.write('<input type="submit"><br>')
- 	f.write('</form>')
- 	f.write('{% endif %}')
- 	f.write('{% if action=="list" %}')
+	f.write('<input type="submit"><br>')
+	f.write('</form>')
+	f.write('{% endif %}')
+	f.write('{% if action=="list" %}')
 	f.write('<a class="btn btn-info" href="/masterdata?action=add"><i class="icon-plus"/></a>')
- 	f.write('<table class="table table-striped table-bordered"><tbody>')
- 	f.write('<thead>')
- 	for c in namaobj.__table__.columns:
+	f.write('<table class="table table-striped table-bordered"><tbody>')
+	f.write('<thead>')
+	for c in namaobj.__table__.columns:
 		f.write('<th>'+str(c)+'</th>')
 	f.write('<th>action</th>')	
- 	f.write('</thead>')
- 	f.write('{% for stocks in content %}')	
- 	f.write('<tr>\n')
- 	for c in namaobj.__table__.columns:
+	f.write('</thead>')
+	f.write('{% for stocks in content %}')	
+	f.write('<tr>\n')
+	for c in namaobj.__table__.columns:
 		f.write('<td>{{'+str(c)+'}}</td>')
-	f.write('<td><a href=""><i class="icon-trash"></a><td>')	
+		f.write('<td><a href=""><i class="icon-trash"></a><td>')	
 	f.write('</tr>')
 	f.write('{% endfor %}')	
 	f.write('</tbody></table>')	
@@ -87,7 +88,7 @@ def generatetemplate(namaobj,namafile):
 menus=[{'title':'Persediaan(0)','href':'/persediaan?action=list'}
       ,{'title':'Pembelian(1)','href':'/pembelian'}
       ,{'title':'Penjualan(2)','href':'/penjualan?action=list'}
-      ,{'title':'Stock','href':'stock'}
+      ,{'title':'Stock','href':'/stock?action="list"'}
       ,{'title':'Master data','href':'/masterdata?action=list'}]
 
 @app.route("/")
@@ -114,7 +115,7 @@ def persediaan():
 
  frm="persediaan.html"
  flash('persediaan')	
- generatetemplate(stocks,'stocks')
+ generatetemplate(stocks,'persediaan')
  sto=stocks.query.all()
  contents=sto
  return render_template(frm,menus=menus,content=contents,action=action) 
@@ -137,9 +138,10 @@ def pembelian():
 @app.route("/stock")
 def pembelianstock():
  action=request.args.get("action")
+ generatetemplate(stocks,'stocks')
  sto=stocks.query.all()
  contents=sto
- return render_template("stock.html",menus=menus,content=contents,action=action)
+ return render_template("stocks.html",menus=menus,content=contents,action=action)
 
 
 @app.route("/penjualan")
