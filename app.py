@@ -173,20 +173,20 @@ def masterdata():
 			f.write('<label>'+str(c)+'</label><input type"text" id="'+str(c)+'" placeholder="'+str(c.type)+'">')
 		
 			
- 	f.write('<input type="submit"><br>')
- 	f.write('</form>')
- 	f.write('{% endif %}')
- 	f.write('{% if action=="list" %}')
+	f.write('<input type="submit"><br>')
+	f.write('</form>')
+	f.write('{% endif %}')
+	f.write('{% if action=="list" %}')
 	f.write('<a class="btn btn-info" href="/masterdata?action=add"><i class="icon-plus"/></a>')
- 	f.write('<table class="table table-striped table-bordered"><tbody>')
- 	f.write('<thead>')
- 	for c in stocks.__table__.columns:
+	f.write('<table class="table table-striped table-bordered"><tbody>')
+	f.write('<thead>')
+	for c in stocks.__table__.columns:
 		f.write('<th>'+str(c)+'</th>')
 	f.write('<th>action</th>')	
- 	f.write('</thead>')
- 	f.write('{% for stocks in content %}')	
- 	f.write('<tr>\n')
- 	for c in stocks.__table__.columns:
+	f.write('</thead>')
+	f.write('{% for stocks in content %}')	
+	f.write('<tr>\n')
+	for c in stocks.__table__.columns:
 		f.write('<td>{{'+str(c)+'}}</td>')
 	f.write('<td><a href=""><i class="icon-trash"></a><td>')	
 	f.write('</tr>')
@@ -195,9 +195,9 @@ def masterdata():
 	f.write('{% endif %}')
 	f.write('{% endblock %}')
 	f.close()
- sto=stocks.query.all()
- contents=sto
- return render_template("masterdata.html",menus=menus,content=contents,action=action)  
+	sto=stocks.query.all()
+	contents=sto
+	return render_template("masterdata.html",menus=menus,content=contents,action=action)  
 
 
 
