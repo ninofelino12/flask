@@ -156,8 +156,7 @@ def masterdata():
  action=request.args.get("action") 
  contents=""
  for c in stocks.__table__.columns:
-    print c
-    contents=contents+c
+	contents=contents+c
  nama=""   
  if not os.path.isfile('./templates/masterdata.html'):
  	f= open("./templates/masterdata.html","w+")
