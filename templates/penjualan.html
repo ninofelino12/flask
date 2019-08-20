@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+  {% block metarefresh %}
+   <meta http-equiv="refresh" content="10" > 
+  {% endblock %}
+
+{% block content %}
+{% 	if action=="add" %}
+    <h1>add<h1>
+    <label>Vendor</label><input type="" name="">	
+{% endif %}
+{% 	if action=="list" %}
+   <a href="/penjualan?action=add" class="btn btn-info"><i class="icon-plus"></i>Add</a>
+ <legend>Penjualan</legend>
+<table class="table table-striped">
+	<thead>
+		<th>Id</th>
+		<th>Id</th>
+		<th>Id</th>
+		<th>Id</th>
+
+	</thead>
+	table
+</table>
+{% endif %}
+
+
+ 
+{% endblock  %} 

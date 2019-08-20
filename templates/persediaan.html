@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+  {% block metarefresh %} <meta http-equiv="refresh" content="10" > 
+  {% endblock %}
+
+
+
+{% block content %}
+{% if action=="list" %}
+<title>persediaan</title>
+<a class="btn" href="/persediaan?action=add"><i class="icon-pencil"></i>ADD</a>
+<br><br><br>
+<legend>Persediaan</legend>
+
+<table class="table table-striped">
+    <thead>
+    	<th>action</th>
+    	<th>Id</th>
+    	<th>Ref</th>
+    	<th>Tanggal</th>
+    	<th>pemasok</th>
+    	<th>namabarang</th>
+    	<th>jumlah</th>
+   </thead>
+	<tbody>
+		{% for item in content %}
+		<tr>
+             <td width="5%"><a class="del btn btn-danger" href="/persediaan?action=del&id={{item.id}}"><i class="icon-trash">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+
+            <td>{{item.tanggal}}</td>
+            <td><a href=""><i class="icon-pencil"></i></a></td>
+            <td width="5%"><a class="del btn" href="/persediaan?action=del&id={{item.id}}"><i class="icon-trash"></i></a></td>
+
+		</tr>
+		
+		
+
+		{% endfor %}
+	</tbody>	
+</table>
+
+{% endif %}
+{%if action=="add" %}
+<h1>Add</h1>
+    <!--
+    	* Adding Record Action
+    -->
+     <form>
+     <fieldset>
+     <legend>Data Persediaan</legend>
+     <label>Tanggal</label><input type="text" placeholder="tanggal terima">
+     <label>Referensi</label><input type="text" placeholder="tanggal terima">
+     <label>Tanggal</label><input type="text" placeholder="tanggal terima">
+     <label>Supplier</label><input type="text" placeholder="Type something…">
+     <label>Item</label><input type="text" placeholder="Type something…">
+     <button type="submit" class="btn">Submit</button>
+     <table class="table table-striped">
+     	<thead>
+     		<th><button>Add</button></th>
+     		<th>Namabarang</th>
+     		<th>Harga</th>
+
+     	</thead>
+     </table>
+     </fieldset>
+
+{% endif %}
+{%if action=="del" %}
+<h1>Del</h1>h1>
+{% endif %}
+
+	
+{% endblock  %}
